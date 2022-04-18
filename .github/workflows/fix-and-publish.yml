@@ -45,7 +45,7 @@ jobs:
         uses: actions/setup-python@v3.1.2
 
       - name: Install modules
-        run: pip install beautifulsoup4 requests html5lib retry
+        run: pip install beautifulsoup4 requests html5lib retry pyoierspace
 
       - name: Publish
         run: python publish.py ${{ secrets.OIER_SPACE_TOKEN }} jin-dan
