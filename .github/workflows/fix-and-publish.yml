@@ -1,0 +1,51 @@
+name: Fix & Publish
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          
+      - name: Install autocorrect
+        run: curl -sSL https://git.io/JcGER | bash
+
+      - name: Install markdownlint-cli2
+        run: npm install markdownlint-cli2 --global
+
+      - name: Run autocorrect
+        run: autocorrect --fix
+
+      - name: Lint and fix markdown
+        run: markdownlint-cli2-fix "**.md"
+
+      - name: Config bot
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Commit & Push back
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Fix markdown
+        
+  publish:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v3.1.2
+
+      - name: Install modules
+        run: pip install beautifulsoup4 requests html5lib retry
+
+      - name: Publish
+        run: python publish.py ${{ secrets.OIER_SPACE_TOKEN }} jin-dan

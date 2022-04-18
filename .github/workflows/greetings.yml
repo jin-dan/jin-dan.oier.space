@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: '感谢你对 jin-dan.oier.space 的关注！记得确保您的 Issue 符合 Issue 规范~'
+        pr-message: '感谢你对 jin-dan.oier.space 的关注！记得检查是否遵守了格式规范，听说和项目风格统一的 Pull Request 会更容易被 Merge～'
