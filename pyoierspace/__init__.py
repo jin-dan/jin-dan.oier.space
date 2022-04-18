@@ -83,7 +83,17 @@ def newPost(
             "post_topping_level": post_topping_level
         }
     )
-    if r.status_code != 200:
-        print("GET", requests.get("https://oier.space/api/new_post.json").status_code, "POST", r.status_code, "Failed to create post, retrying...")
+    if r.status_code != 200 or json.loads(r.text)["status"] != "succeed":
+        print(r.status_code, "Failed to create post, retrying...")
         raise RuntimeError("Failed to create post")
+    return json.loads(r.text)
+
+@retry(tries=3, delay=1)
+def deletePost(token: str, pk: int) -> dict:
+    r = requests.post("https://oier.space/api/delete_post.json", data = {
+        "token": token,
+        "post": pk
+    })
+    if r.status_code != 200 or json.loads(r.text)["status"] != "succeed":
+        print(r.status_code, "Failed to delete post, retrying...")
     return json.loads(r.text)

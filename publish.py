@@ -1,7 +1,6 @@
 # coding: UTF-8
 from bs4 import BeautifulSoup
 import requests, json, sys
-import pyluog
 import pyoierspace
 
 def get_slugs(target: list) -> list:
@@ -38,4 +37,11 @@ with open("posts.json") as f:
 # TODO
 
 # 删除文章
-# TODO: wbh 快出 API
+with open("posts.json") as f:
+    local_posts = json.load(f)
+    local_slugs = get_slugs(local_posts)
+    remote_posts = pyoierspace.getPosts(domain_prefix)
+    for post in remote_posts:
+        if not post["slug"] in local_slugs: 
+            # 远程的 slug 不在本地的 posts 里面，要删除
+            pyoierspace.deletePost(token, post["pk"])
