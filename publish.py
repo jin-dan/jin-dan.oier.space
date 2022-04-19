@@ -1,7 +1,7 @@
 # coding: UTF-8
 from bs4 import BeautifulSoup
 import requests, json, sys
-import pyoierspace
+import oierspace as pyoierspace
 
 def get_slugs(target: list) -> list:
     target_slugs = []
