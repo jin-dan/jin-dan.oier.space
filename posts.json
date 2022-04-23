@@ -30,5 +30,13 @@
         "intro": "包括数据备份、系统安装、系统美化、软件使用等内容的 Arch Linux 入门食用指南",
         "top_level": 10,
         "editable": false
+    },
+    {
+        "slug": "how-to-eat-tls-correctly",
+        "title": "如何正确地为您的网站部署 TLS",
+        "category": "web",
+        "intro": "如何正确地为您的网站部署 TLS，包括理论知识和实践操作",
+        "top_level": 10,
+        "editable": false
     }
 ]
