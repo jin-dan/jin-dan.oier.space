@@ -6,21 +6,18 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      
       - name: Use Node.js 16.x
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-          
-      - name: Install autocorrect
-        run: curl -sSL https://git.io/JcGER | bash
 
       - name: Install markdownlint-cli2
         run: npm install markdownlint-cli2 --global
+        
+      - uses: actions/checkout@v3
 
-      - name: Run autocorrect
-        run: autocorrect --fix
+      - name: AutoCorrect
+        uses: huacnlee/autocorrect-action@main
 
       - name: Lint and fix markdown
         run: markdownlint-cli2-fix "**.md"
