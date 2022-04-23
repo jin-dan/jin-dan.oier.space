@@ -19,7 +19,7 @@ jobs:
       - name: AutoCorrect
         uses: huacnlee/autocorrect-action@main
         with:
-          args: "--fix"
+          args: ". --fix"
 
       - name: Lint and fix markdown
         run: markdownlint-cli2-fix "**.md"
